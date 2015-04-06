@@ -1,6 +1,6 @@
 # wallpaper-changer
 A wallpaper background changers for lxde/lubuntu that uses python.
-
+Only works with pcmanfm because it uses the file manager to set the background.
 
 use it like:
 python wallpaperchanger [pictureDirector] [delay]

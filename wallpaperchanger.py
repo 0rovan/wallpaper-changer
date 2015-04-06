@@ -30,7 +30,8 @@ def getpaths(rootdir):
 
 def main(pictures, delay):
     while(True):
-        randpic = random.randint(0, len(pictures))
+	# -1 or else it goes out of range.
+        randpic = random.randint(0, len(pictures)-1)
         picture = pictures[randpic]
         argument = "--set-wallpaper=" + picture
         call(["pcmanfm", argument])
