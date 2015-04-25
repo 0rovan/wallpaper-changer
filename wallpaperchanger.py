@@ -3,8 +3,8 @@ import os
 import sys
 from subprocess import call,Popen,PIPE
 
-import random
-import time
+from random import choice
+from time import sleep
 
 
 def getfolders(rootdir):
@@ -24,15 +24,12 @@ def getpaths(rootdir):
         pictures = listed[2]
         for pic in pictures:
             paths.append(str(folder) + '/' + str(pic))
-
     return(paths)
 
 
 def main(pictures, delay):
     while(True):
-	# -1 or else it goes out of range.
-        randpic = random.randint(0, len(pictures)-1)
-        picture = pictures[randpic]
+        picture = random.choice(pictures)
         argument = "--set-wallpaper=" + picture
         call(["pcmanfm", argument])
         time.sleep(delay)
@@ -41,18 +38,18 @@ def main(pictures, delay):
 if __name__ == "__main__":
     p=Popen(("ps","-e"),stdout=PIPE)
     if call(("grep","pcmanfm"),stdin=p.stdout,stdout=PIPE)==1:
-		print("PCMan File Manager not running.")
-		sys.exit(1)
+        print("PCMan File Manager not running.")
+        sys.exit(1)
     if len(sys.argv) == 3:
         parentDir = sys.argv[1]
         if not os.path.isdir(parentDir):
-			print("Can't open directory '"+parentDir+"'.")
-			sys.exit(1)
+            print("Can't open directory '"+parentDir+"'.")
+            sys.exit(1)
         delay = eval(sys.argv[2])
         pictures = getpaths(parentDir)
         if len(pictures)==0:
-			print("No files found in '"+parentDir+"'.")
-			exit(1)
+            print("No files found in '"+parentDir+"'.")
+            exit(1)
         main(pictures, delay)
         sys.exit(0)
     else:
