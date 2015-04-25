@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import os
 import sys
-from subprocess import call
+from subprocess import call,check_output,Popen,PIPE
 
 import random
 import time
@@ -39,6 +39,10 @@ def main(pictures, delay):
 
 
 if __name__ == "__main__":
+    p=Popen(("ps","-e"),stdout=PIPE)
+    if call(("grep","pcmanfm"),stdin=p.stdout,stdout=PIPE)==1:
+		print("PCMan File Manager not running.")
+		sys.exit(1)
     if len(sys.argv) == 3:
         parentDir = sys.argv[1]
         delay = eval(sys.argv[2])
