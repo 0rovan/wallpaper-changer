@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import os
 import sys
-from subprocess import call,check_output,Popen,PIPE
+from subprocess import call,Popen,PIPE
 
 import random
 import time
@@ -45,8 +45,14 @@ if __name__ == "__main__":
 		sys.exit(1)
     if len(sys.argv) == 3:
         parentDir = sys.argv[1]
+        if not os.path.isdir(parentDir):
+			print("Can't open directory '"+parentDir+"'.")
+			sys.exit(1)
         delay = eval(sys.argv[2])
         pictures = getpaths(parentDir)
+        if len(pictures)==0:
+			print("No files found in '"+parentDir+"'.")
+			exit(1)
         main(pictures, delay)
         sys.exit(0)
     else:
